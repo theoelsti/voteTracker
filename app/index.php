@@ -1,6 +1,7 @@
 <?php   
-session_start();
+    session_start();
     include('html/header.html');
     include("html/home.html");
+
 ?>
 
