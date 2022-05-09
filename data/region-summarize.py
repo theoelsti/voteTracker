@@ -56,7 +56,8 @@ for key in resultats:
             "voix-1": votes_1,
             "voix-2": votes_2,
             "libelle-dpt": resultats[key-1]["libelle-dpt"],
-            "vainqueur":vainqueur
+            "vainqueur":vainqueur,
+            "reg_id":
         }
         current_dpt=resultats[key]["code-dpt"]
     i+=1
@@ -66,21 +67,21 @@ with open('output/dpts-clean.json', 'w') as ouptputfile:
             ouptputfile.write(resultats_write)
             ouptputfile.close()       
 
-
-regions = {
-
-    "01":"FR.AI",
-    "02":"FR.AS",
-    "03":"FR.AL",
-    "04":"FR.AP",
-    "05":"FR.AM",
-    "06":"FR.AH"
-}
-
-
 with open('../app/script/fra.topo.json', 'r') as topofile:
     data = topofile.read()
     data=json.loads(data)
     topofile.close()
-for key in data["objects"]["fra"]:
-    print(key["geometries"])
+
+i=1
+reg_id = {}
+for key in data["objects"]["fra"]["geometries"]:
+    if(key["id"][0:2] == "FR"):
+        if(i <10):
+            i_tmp="0"+str(i)
+        else:
+            i_tmp=str(i)
+        reg_id[i_tmp] = key["id"]
+        i+=1
+for key in reg_id:
+    print(reg_id[key])
+# 11h04 : Il faut ajouter les id des regions dans le json
