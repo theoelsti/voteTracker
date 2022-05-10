@@ -82,23 +82,30 @@ for key in resultats:
     if(resultats[key]["code-dpt"] in outremer):
         continue
 
-    # print("Key : ", key, " - Current DPT : ", tmp_current_dpt)
-    # print(resultats[key]["code-dpt"], " - ", tmp_current_dpt)
+
     if(resultats[key]["code-dpt"]==tmp_current_dpt):
         
         votes_1+=int(resultats[key]["voix1"])
         votes_2+=int(resultats[key]["voix2"])
-
-    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==34819):
+    if(resultats[key]["code-dpt"] == "75"):
+        print("Parigo")
+        print(resultats[key]["voix1"])
+    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==34819 or resultats[key]["code-dpt"] == "75"):
+        if(resultats[key]["code-dpt"] == "75"):
+            print("PARIGOOOOO")
+            # Ok alors le pb: 
+            # On a un département qui n'a pas de voix
+            # C'est paris, car il n'y a qu'une entrée
+            # On va donc faire des conditions pour paris
+            # si c'est 75, on applique le script pour le 74, puis on ajoute les valeurs pour le 75
         
         if(votes_1>votes_2):
             vainqueur=1
-
         if(votes_1==votes_2):
             vainqueur=0
-            
         if(votes_1<votes_2):
             vainqueur=2
+        
         if(bool(re.match("^[0-9]{2}$",tmp_current_dpt)) is True):
             depart_id=reg_id[tmp_current_dpt]["reg_id"]
             departments[depart_id]= {
