@@ -78,15 +78,18 @@ for key in resultats:
         tmp_current_dpt="0"+str(current_dpt)
     if(current_dpt>=10):
         tmp_current_dpt=str(current_dpt)
+    # On veut ignorer les départements en 2A
+    if(resultats[key]["code-dpt"] in outremer):
+        continue
 
-    print("Key : ", key, " - Current DPT : ", tmp_current_dpt)
-    print(resultats[key]["code-dpt"], " - ", tmp_current_dpt)
+    # print("Key : ", key, " - Current DPT : ", tmp_current_dpt)
+    # print(resultats[key]["code-dpt"], " - ", tmp_current_dpt)
     if(resultats[key]["code-dpt"]==tmp_current_dpt):
         
         votes_1+=int(resultats[key]["voix1"])
         votes_2+=int(resultats[key]["voix2"])
 
-    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==len(resultats)-1):
+    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==34819):
         
         if(votes_1>votes_2):
             vainqueur=1
