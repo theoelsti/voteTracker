@@ -1,0 +1,22 @@
+
+
+.welcomeMessageContainer
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.userTitle {
+    font-size: 50px;
+}
+.welcomeMessage{
+    font-size: 20px;
+}
+#userName {
+    font-style: bold;
+}
