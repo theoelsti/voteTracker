@@ -1,7 +1,6 @@
 import csv
 import json
 import re
-from tkinter.ttk import Separator
 i=0
 
 resultats = {  
@@ -27,13 +26,8 @@ with open("2tour2022.csv", "r") as csvfile:
                 "dept": row[1]
             }
             i+=1
-
     csvfile.close()
 
-with open('output/dpts.json', 'w') as ouptputfile:
-    resultats_write = json.dumps(resultats, separators=(',', ':'))
-    ouptputfile.write(resultats_write)
-    ouptputfile.close()
 
 # Compte des votes et création du fichier de sortie
 departments = { }
@@ -44,18 +38,18 @@ votes_2=0
 
 outremer = {
     "2A":"FR.CS",
-    "2B":"FR.HC",
-    "ZA":"GP.",
-    "ZB":"MQ.",
-    "ZC":"GF.",
-    "ZD":"RE.",
-    "ZM":"YT.",
-    "ZN":"NC.",
-    "ZP":"PF.",
-    "ZS":"SP.",
-    "ZW":"WF.",
-    "ZX":"SM.",
-    "ZZ":"FH."
+    "2B":"FR.HC"
+    # "ZA":"GP.",
+    # "ZB":"MQ.",
+    # "ZC":"GF.",
+    # "ZD":"RE.",
+    # "ZM":"YT.",
+    # "ZN":"NC.",
+    # "ZP":"PF.",
+    # "ZS":"SP.",
+    # "ZW":"WF.",
+    # "ZX":"SM.",
+    # "ZZ":"FH."
 }
 
 with open('../app/script/fra.topo.json', 'r') as topofile:
@@ -78,27 +72,15 @@ for key in resultats:
         tmp_current_dpt="0"+str(current_dpt)
     if(current_dpt>=10):
         tmp_current_dpt=str(current_dpt)
-    # On veut ignorer les départements en 2A
+
     if(resultats[key]["code-dpt"] in outremer):
         continue
 
-
-    if(resultats[key]["code-dpt"]==tmp_current_dpt):
-        
+    if(resultats[key]["code-dpt"]==tmp_current_dpt):        
         votes_1+=int(resultats[key]["voix1"])
         votes_2+=int(resultats[key]["voix2"])
-    if(resultats[key]["code-dpt"] == "75"):
-        print("Parigo")
-        print(resultats[key]["voix1"])
-    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==34819 or resultats[key]["code-dpt"] == "75"):
-        if(resultats[key]["code-dpt"] == "75"):
-            print("PARIGOOOOO")
-            # Ok alors le pb: 
-            # On a un département qui n'a pas de voix
-            # C'est paris, car il n'y a qu'une entrée
-            # On va donc faire des conditions pour paris
-            # si c'est 75, on applique le script pour le 74, puis on ajoute les valeurs pour le 75
-        
+
+    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==34819):
         if(votes_1>votes_2):
             vainqueur=1
         if(votes_1==votes_2):
@@ -116,6 +98,37 @@ for key in resultats:
         votes_1=0
         votes_2=0
         current_dpt+=1
+departments["FR.VP"] = {
+    "voix1": resultats[29254]["voix1"],
+    "voix2": resultats[29254]["voix2"],
+    "fillKey":vainqueur
+}
+votes1=0
+votes2=0
+current_dpt="2A"
+for key in resultats:
+    if(resultats[key]["code-dpt"] in outremer):
+        if(current_dpt==resultats[key]["code-dpt"]):
+            votes1+=int(resultats[key]["voix1"])
+            votes2+=int(resultats[key]["voix2"])
+            
+        if(current_dpt!=resultats[key]["code-dpt"] or key == 6937):
+            if(votes1>votes2):
+                vainqueur=1
+            if(votes1==votes2):
+                vainqueur=0
+            if(votes1<votes2):
+                vainqueur=2
+            
+            departments[ outremer[ resultats[key-1]["code-dpt"] ] ] = {
+                "voix1": votes1,
+                "voix2": votes2,
+                "fillKey":vainqueur
+            }
+            votes1=0
+            votes2=0
+            current_dpt=resultats[key]["code-dpt"]
+
 
 with open('../app/data/dpts-clean.json', 'w') as ouptputfile:
             resultats_write = json.dumps(departments, separators=(',', ':'))
