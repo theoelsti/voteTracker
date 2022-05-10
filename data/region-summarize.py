@@ -1,6 +1,7 @@
 import csv
 import json
 import re
+from tkinter.ttk import Separator
 i=0
 
 resultats = {  
@@ -22,7 +23,8 @@ with open("2tour2022.csv", "r") as csvfile:
                 "libelle-dpt": row[1],
                 "voix1": row[23],
                 "voix2": row[30],
-                "vainqueur":vainqueur
+                "vainqueur":vainqueur,
+                "dept": row[1]
             }
             i+=1
 
@@ -36,7 +38,7 @@ with open('output/dpts.json', 'w') as ouptputfile:
 # Compte des votes et création du fichier de sortie
 departments = { }
 i=0
-current_dpt="01"
+current_dpt=1
 votes_1=0
 votes_2=0
 
@@ -56,45 +58,54 @@ outremer = {
     "ZZ":"FH."
 }
 
-
-
 with open('../app/script/fra.topo.json', 'r') as topofile:
     data = topofile.read()
     data=json.loads(data)
     topofile.close()
 i=1
-reg_id = {}
-for reg_key in data["objects"]["fra"]["geometries"]:
-    if(reg_key["id"][0:2] == "FR" and reg_key["id"] != "FR.CS" and reg_key["id"] != "FR.HC"):
-        if(i <10):
-            i_tmp="0"+str(i)
-        else:
-            i_tmp=str(i)
-        reg_id[i_tmp] = reg_key["id"]
-        i+=1
+
+with open("reg_id.json", "r") as reg_id_file:
+    reg_id = json.loads(reg_id_file.read())
+    reg_id_file.close()
+
 for key in resultats:
-    if(resultats[key]["code-dpt"]==current_dpt):
+
+    if(current_dpt==20):
+        current_dpt=21
+    if(current_dpt==96):
+        break
+    if(current_dpt<10):
+        tmp_current_dpt="0"+str(current_dpt)
+    if(current_dpt>=10):
+        tmp_current_dpt=str(current_dpt)
+
+    print("Key : ", key, " - Current DPT : ", tmp_current_dpt)
+    print(resultats[key]["code-dpt"], " - ", tmp_current_dpt)
+    if(resultats[key]["code-dpt"]==tmp_current_dpt):
+        
         votes_1+=int(resultats[key]["voix1"])
         votes_2+=int(resultats[key]["voix2"])
-    if(resultats[key]["code-dpt"]!=current_dpt or key==len(resultats)-1):
+
+    if(resultats[key]["code-dpt"]!=tmp_current_dpt or key==len(resultats)-1):
+        
         if(votes_1>votes_2):
             vainqueur=1
+
         if(votes_1==votes_2):
             vainqueur=0
+            
         if(votes_1<votes_2):
             vainqueur=2
-            
-        if(bool(re.match("^[0-9]{2}$",current_dpt)) is True):
-            depart_id=reg_id[current_dpt]
-            
+        if(bool(re.match("^[0-9]{2}$",tmp_current_dpt)) is True):
+            depart_id=reg_id[tmp_current_dpt]["reg_id"]
             departments[depart_id]= {
-
                 "voix1": votes_1,
                 "voix2": votes_2,
                 "fillKey":vainqueur
             }
-            current_dpt=resultats[key]["code-dpt"]
-    i+=1
+        votes_1=0
+        votes_2=0
+        current_dpt+=1
 
 with open('../app/data/dpts-clean.json', 'w') as ouptputfile:
             resultats_write = json.dumps(departments, separators=(',', ':'))

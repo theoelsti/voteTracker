@@ -711,7 +711,7 @@
           {
             "type": "Polygon",
             "properties": {
-              "name": "Haute-Rhin"
+              "name": "Haut-Rhin"
             },
             "id": "FR.HR",
             "arcs": [
@@ -1217,7 +1217,7 @@
           {
             "type": "Polygon",
             "properties": {
-              "name": "Meurhe-et-Moselle"
+              "name": "Meurthe-et-Moselle"
             },
             "id": "FR.MM",
             "arcs": [
@@ -1511,7 +1511,7 @@
           {
             "type": "Polygon",
             "properties": {
-              "name": "Seien-et-Marne"
+              "name": "Seine-et-Marne"
             },
             "id": "FR.SE",
             "arcs": [
