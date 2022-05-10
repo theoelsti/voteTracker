@@ -1,12 +1,11 @@
 import csv
 import json
-import string
-from unittest import result
-from time import sleep
+import re
 i=0
 
 resultats = {  
 }
+# Tri du fichier de base 
 with open("2tour2022.csv", "r") as csvfile:
     reader= csv.reader(csvfile, delimiter=";")
     for row in reader:
@@ -21,8 +20,8 @@ with open("2tour2022.csv", "r") as csvfile:
             resultats[i] = {
                 "code-dpt": row[0],
                 "libelle-dpt": row[1],
-                "voix-1": row[23],
-                "voix-2": row[30],
+                "voix1": row[23],
+                "voix2": row[30],
                 "vainqueur":vainqueur
             }
             i+=1
@@ -34,17 +33,49 @@ with open('output/dpts.json', 'w') as ouptputfile:
     ouptputfile.write(resultats_write)
     ouptputfile.close()
 
-regions = { }
+# Compte des votes et création du fichier de sortie
+departments = { }
 i=0
-
 current_dpt="01"
 votes_1=0
 votes_2=0
+
+outremer = {
+    "2A":"FR.CS",
+    "2B":"FR.HC",
+    "ZA":"GP.",
+    "ZB":"MQ.",
+    "ZC":"GF.",
+    "ZD":"RE.",
+    "ZM":"YT.",
+    "ZN":"NC.",
+    "ZP":"PF.",
+    "ZS":"SP.",
+    "ZW":"WF.",
+    "ZX":"SM.",
+    "ZZ":"FH."
+}
+
+
+
+with open('../app/script/fra.topo.json', 'r') as topofile:
+    data = topofile.read()
+    data=json.loads(data)
+    topofile.close()
+i=1
+reg_id = {}
+for reg_key in data["objects"]["fra"]["geometries"]:
+    if(reg_key["id"][0:2] == "FR" and reg_key["id"] != "FR.CS" and reg_key["id"] != "FR.HC"):
+        if(i <10):
+            i_tmp="0"+str(i)
+        else:
+            i_tmp=str(i)
+        reg_id[i_tmp] = reg_key["id"]
+        i+=1
 for key in resultats:
     if(resultats[key]["code-dpt"]==current_dpt):
-        votes_1+=int(resultats[key]["voix-1"])
-        votes_2+=int(resultats[key]["voix-2"])
-
+        votes_1+=int(resultats[key]["voix1"])
+        votes_2+=int(resultats[key]["voix2"])
     if(resultats[key]["code-dpt"]!=current_dpt or key==len(resultats)-1):
         if(votes_1>votes_2):
             vainqueur=1
@@ -52,36 +83,24 @@ for key in resultats:
             vainqueur=0
         if(votes_1<votes_2):
             vainqueur=2
-        regions[current_dpt] = {
-            "voix-1": votes_1,
-            "voix-2": votes_2,
-            "libelle-dpt": resultats[key-1]["libelle-dpt"],
-            "vainqueur":vainqueur,
-            "reg_id":
-        }
-        current_dpt=resultats[key]["code-dpt"]
+            
+        if(bool(re.match("^[0-9]{2}$",current_dpt)) is True):
+            depart_id=reg_id[current_dpt]
+            
+            departments[depart_id]= {
+
+                "voix1": votes_1,
+                "voix2": votes_2,
+                "fillKey":vainqueur
+            }
+            current_dpt=resultats[key]["code-dpt"]
     i+=1
 
-with open('output/dpts-clean.json', 'w') as ouptputfile:
-            resultats_write = json.dumps(regions, separators=(',', ':'))
+with open('../app/data/dpts-clean.json', 'w') as ouptputfile:
+            resultats_write = json.dumps(departments, separators=(',', ':'))
             ouptputfile.write(resultats_write)
             ouptputfile.close()       
 
-with open('../app/script/fra.topo.json', 'r') as topofile:
-    data = topofile.read()
-    data=json.loads(data)
-    topofile.close()
+# Lecture du fichier de topo pour récupérer les codes régions
 
-i=1
-reg_id = {}
-for key in data["objects"]["fra"]["geometries"]:
-    if(key["id"][0:2] == "FR"):
-        if(i <10):
-            i_tmp="0"+str(i)
-        else:
-            i_tmp=str(i)
-        reg_id[i_tmp] = key["id"]
-        i+=1
-for key in reg_id:
-    print(reg_id[key])
-# 11h04 : Il faut ajouter les id des regions dans le json
+# 11h04 : Il faut ajouter les id des departments dans le json
