@@ -30,32 +30,48 @@
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="inputGroupSelect01" value="0">Options</label>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01" onclick="updateDptChoices()">
+                    <select class="custom-select" id="inputGroupSelect01" name="departmentSelect" onclick="updateDptChoices()">
                       <option selected>Choix...</option>
                       <option value="1">Tous les départements</option>
                       <option value="2">Plage de départements</option>
                       <option value="3">Départements distincts</option>
                     </select>
                   </div>
-                
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-secondary" type="button" onclick="addButton">Button</button>
+
+
+                  <button type="button" class="btn btn-success" id="allDpt">Tous les Départements seront séléctionnés</button>
+
+                    <div id="dptMultiSelector"> 
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" onclick="addButton()">+</button>
+                            </div>
+                            <input name="dpt-multi-1" id="dpt-multi-1" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                        </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-                  </div>
-                  
 
+                    <div id="dptRangeSelector">
+                        <!--Créer deux input cote a cote -->
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" ><b>Debut</b>&nbsp;  et <b>&nbsp; Fin</b></span>
+                            </div>
+                            <input type="text" id="dpt-lower" class="form-control" name="dpt-lower">
+                            <input type="text" id="dpt-upper" class="form-control" name="dpt-upper">
+                        </div>                            
+                    </div>
+                    <h4>2- Choix des résultats</h4>
+                    <!--Propose un menu déroulant avec trois choix-->
+                    <select class="form-select" id="resultChoice" name="resultChoice" aria-label="Default select example">
+                        <option selected>Choix...</option>
+                        <option value="1">E. Macron</option>
+                        <option value="2">M. Le Pen</option>
+                        <option value="3">Egalité</option>
+                    </select>
             </div>
+            <!--Create a button for submit-->
+            <button type="submit" class="btn btn-primary">Exporter</button>
         </form>
-
-
-
-
-<!-- 
-        <div class="exportButtonContainer">
-            <a href="export.php" title='Exporter' class="btn btn-success"><i data-feather="download"></i></a>
-        </div> -->
     </div>
     <div class="userExportsContainer">
         <div class="userExportsTitle">Vos exports</div>
