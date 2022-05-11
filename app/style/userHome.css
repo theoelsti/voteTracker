@@ -20,3 +20,17 @@
 #userName {
     font-style: bold;
 }
+
+.exportTitle, .userExportsTitle{
+    font-size: 30px;
+}
+.exportContainer, .userExportsContainer {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.userExportsContainer{
+    padding-left: 10%;
+}

@@ -10,15 +10,51 @@ if(isset($_SESSION['admin'])&& $_SESSION['admin']== 1){
 
 } else {
     include('html/userHome.html');
+    // Crée une requete sql
+    $sql = "SELECT * FROM exports WHERE user_id = ?";
+    $stmt = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $param_id);
+    $param_id = $_SESSION['id'];
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+    mysqli_close($link);
+?>
 
-}   
-echo("<script>document.getElementById('userWelcome').innerHTML = 'Bienvenue <a id=\"userName\">" .  $_SESSION['username'] . "</a>'</script>");
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    echo("<script>document.getElementById('login').innerHTML = '<i data-feather=\"user\"></i> Mon compte'</script>") ;    
-    echo("<script>document.getElementById('login').className ='nav-link active';</script>");
-    echo("<script>feather.replace() </script>");
+<table class='table table-hover'>
+<thead>
+<tr>
+<th scope='col'>#</th>
+<th scope='col'>Nom du fichier</th>
+<th scope='col'>Date de création</th>
+<th scope='col'>Actions</th>
+</tr>
+</thead>
+<tbody>
+        <?php
+    while ($row = mysqli_fetch_array($result)) {
+        echo "<tr>";
+        echo "<th scope='row'>" . $row['id'] . "</th>";
+        echo "<td>" . $row['exportname'] . "</td>";
+        echo "<td>" . $row['date'] . "</td>";
+        echo "
+        <td><button type=\"button\" class=\"btn btn-primary\" title=\"Télécharger au format .csv\"><i class=\"bi bi-filetype-csv\"></i></button>
+        <button type=\"button\" class=\"btn btn-danger\" title=\"Supprimer\"><i class=\"bi bi-trash\"></i></button></td>
+        ";
 
-}
+        echo "<td>";
+    }
+    echo "</tbody>";
+    echo "</table>";
+
+    }   
+    echo("<script>document.getElementById('userWelcome').innerHTML = 'Bienvenue, <a id=\"userName\">" .  $_SESSION['username'] . "</a>'</script>");
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        echo("<script>document.getElementById('login').innerHTML = '<i data-feather=\"user\"></i> Mon compte'</script>") ;    
+        echo("<script>document.getElementById('login').className ='nav-link active';</script>");
+        echo("<script>feather.replace() </script>");
+
+    }
 
 
 ?>

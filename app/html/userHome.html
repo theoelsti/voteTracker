@@ -8,11 +8,29 @@
 
 <body>
 
-<div class="welcomeMessageContainer">
-    <div class="userTitle">Accueil Utilisateur</div>
-    <div class="welcomeMessage" id="userWelcome"> </div>
-    <a href="logout.php" title='Déconnexion' class="btn btn-danger"><i data-feather="log-out"></i></a>
-</div>
+    <div class="welcomeMessageContainer">
+        <div class="userTitle">Accueil Utilisateur</div>
+        <div class="welcomeMessage" id="userWelcome"> </div>
+        <a href="logout.php" title='Déconnexion' class="btn btn-danger"><i data-feather="log-out"></i></a>
+    </div>
+
+    <div class="exportContainer">
+        <div class="exportTitle">Exportation</div>
+        <div class="exportDescription">Vous souhaitez exporter des données pour votre utilisation personnelle ? </div>
+        <div class="exportDescription " ><i>C'est possible !</i> </div>
+        <div class="exportDescription">Choissez les champs souhaités, une plage de données, et exportez le tout en .csv !</div>
+
+        <div class="exportButtonContainer">
+            <a href="export.php" title='Exporter' class="btn btn-success"><i data-feather="download"></i></a>
+        </div>
+    </div>
+    <div class="userExportsContainer">
+        <div class="userExportsTitle">Vos exports</div>
+        <div class="userExportsDescription">Vous pouvez consulter ici vos exports récents.</div>
+        <div class="userExportsDescription">Cliquez sur un export pour le télécharger.</div>
+        <div class="userExportsDescription">Vous pouvez également supprimer un export.</div>
+    </div>
+
 </body>
 
 
