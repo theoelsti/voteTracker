@@ -1,6 +1,5 @@
 
 function hideOnPage(){
-    document.getElementById('dptMultiSelector').hidden = true;
     document.getElementById("dptRangeSelector").hidden = true;  
     //allDpt
     document.getElementById("allDpt").hidden = true;
@@ -15,28 +14,17 @@ function updateDptChoices(){
     console.log(document.getElementById("inputGroupSelect01").value);
     switch(document.getElementById("inputGroupSelect01").value){
         case "1":
-            document.getElementById("dptMultiSelector").hidden = true;
             document.getElementById("dptRangeSelector").hidden = true;    
             document.getElementById("allDpt").hidden = false;        
             break;
         case "2":
-            document.getElementById("dptMultiSelector").hidden = true;
             document.getElementById("dptRangeSelector").hidden = false;
             document.getElementById("allDpt").hidden = true;            
             break;
-        case "3":
-            document.getElementById("dptMultiSelector").hidden = false;
-            document.getElementById("dptRangeSelector").hidden = true;            
-            document.getElementById("allDpt").hidden = true;            
-
-            break;
         case "Choix...":
-            document.getElementById("dptMultiSelector").hidden = true;
             document.getElementById("dptRangeSelector").hidden = true;            
             document.getElementById("allDpt").hidden = true;            
-
             break;
-
         }
 }
 dptMulti=1

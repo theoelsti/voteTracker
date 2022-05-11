@@ -5,11 +5,13 @@ session_start();
 include('html/header.html');
 require_once "config.php";
 
-print_r($_POST);
-print("\n");
-
+$file = substr(str_shuffle(md5(time())), 0, 15);
+$file = $file . ".csv";
 if($_POST["departmentSelect"] == "2"){ // Mode range
-    print("./script.sh 2 ".$_POST['dpt-lower'] . ";" . $_POST['dpt-upper']. " ". $_POST['resultChoice']);
+    print("./script.sh 2 ".$_POST['dpt-lower'] . ";" . $_POST['dpt-upper']. " ". $_POST['resultChoice'] . " " . $file);
+}
+    if ($_POST["departmentSelect"] == "1"){ // Mode tous les dpts
+    print("./script.sh 1 ".$_POST['resultChoice'] . " " . $file);
 }
 
 
