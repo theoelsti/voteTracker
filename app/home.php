@@ -38,9 +38,10 @@ if(isset($_SESSION['admin'])&& $_SESSION['admin']== 1){
         echo "<td>" . $row['exportname'] . "</td>";
         echo "<td>" . $row['date'] . "</td>";
         echo "
-        <td><button type=\"button\" class=\"btn btn-primary\" title=\"Télécharger au format .csv\"><i class=\"bi bi-filetype-csv\"></i></button>
-        <button type=\"button\" class=\"btn btn-danger\" title=\"Supprimer\"><i class=\"bi bi-trash\"></i></button></td>
-        ";
+        <td>
+        <button type=\"button\" class=\"btn btn-primary\" title=\"Télécharger au format .csv\"><i class=\"bi bi-filetype-csv\"></i></button>
+        <a href=\"delete.php?file=".$row['exportname']."\"><button  type=\"button\" class=\"btn btn-danger\" title=\"Supprimer\" \"><i class=\"bi bi-trash\"></i></button></a>
+        </td>";
 
         echo "<td>";
     }
