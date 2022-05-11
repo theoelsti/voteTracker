@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style/userHome.css">
+    <script src="script/departmentsExport.js"></script>
     <title>Accueil Utilisateur</title>
 </head>
 
@@ -20,9 +21,41 @@
         <div class="exportDescription " ><i>C'est possible !</i> </div>
         <div class="exportDescription">Choissez les champs souhaités, une plage de données, et exportez le tout en .csv !</div>
 
+        <!-- Formulaire d'export des données avec choix des départements-->
+        <form action="export.php" method="post">
+            <div class="exportForm">
+
+                <h4>1- Choix des départements</h4>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01" value="0">Options</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" onclick="updateDptChoices()">
+                      <option selected>Choix...</option>
+                      <option value="1">Tous les départements</option>
+                      <option value="2">Plage de départements</option>
+                      <option value="3">Départements distincts</option>
+                    </select>
+                  </div>
+                
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-outline-secondary" type="button" onclick="addButton">Button</button>
+                    </div>
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                  </div>
+                  
+
+            </div>
+        </form>
+
+
+
+
+<!-- 
         <div class="exportButtonContainer">
             <a href="export.php" title='Exporter' class="btn btn-success"><i data-feather="download"></i></a>
-        </div>
+        </div> -->
     </div>
     <div class="userExportsContainer">
         <div class="userExportsTitle">Vos exports</div>
