@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/adminHome.css">
+    <title>Accueil Utilisateur</title>
+</head>
+
+<body>
+
+<div class="welcomeMessageContainer">
+    <div class="userTitle">Administration</div>
+    <div class="welcomeMessage" id="userWelcome"> </div>
+    <a href="logout.php" title='Déconnexion' class="btn btn-danger"><i data-feather="log-out"></i></a>
+</div>
+
+    <div class="monitoringContainer">
+        <div class="systemMonitoringContainer">
+            <div class="systemElement" id="database">
+                <div class="elementTitle">Base de données</div>
+                <div class="state" id="dbstate"></div>
+                <i class="bi bi-server "></i>
+            </div>
+
+        </div>
+        <div class="systemMonitoringContainer">
+
+            <div class="systemElement" id="server">
+                <div class="elementTitle">Serveur Web</div>
+                <i class="bi bi-server "></i>
+                <div class="state" id="webstate"></div>
+
+
+            </div>
+        </div>
+
+        <div class="systemMonitoringContainer">
+            <div class="systemElement" id="serverDNS">
+                <div class="elementTitle">Serveur DNS</div>
+                <i class="bi bi-server "></i>
+                <div class="state" id="dnsstate"></div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>

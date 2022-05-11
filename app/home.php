@@ -6,7 +6,7 @@ include('config.php');
 // Check connection
 if (mysqli_connect_errno()){echo "Failed to connect to MySQL: " . mysqli_connect_error();}
 if(isset($_SESSION['admin'])&& $_SESSION['admin']== 1){
-    include('adminHome.html');
+    include('html/adminHome.html');
 
 } else {
     include('html/userHome.html');
