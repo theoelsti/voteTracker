@@ -28,13 +28,13 @@ if($count == 0){
 }
 else {
     // Download a file
-    file_put_contents(basename("../data/out/". $file), file_get_contents("../data/out/". $file));
-    $file_url = "../data/out/". $file;
+    file_put_contents(basename("exports/". $file), file_get_contents("exports/". $file));
+    $file_url = "exports/". $file;
     header('Content-Type: application/octet-stream');
     header("Content-Transfer-Encoding: Binary"); 
     header("Content-disposition: attachment; filename=\"".$file."\""); 
     readfile($file_url);
-    header("Location: home.php");
+    header("location: home.php");
     exit;
 }
 

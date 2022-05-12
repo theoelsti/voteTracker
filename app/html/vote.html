@@ -2,13 +2,28 @@
 <head>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-    <script src="../script/datamaps.fra.js"></script>    
+    <script src="../script/datamaps.fra.js"></script>   
+    <link rel="stylesheet" href="../style/vote.css">
 
 </head>
 
 <body>
-    
+    <div class="titleContainer"">
+        
+        <div class="mapTitle">
+            <h3>Statistiques et Visualisation des résultats éléctoraux en 2022</h3>
+        </div>
+        <div class="mapDescription">
+            Ci-dessous se trouve une carte de France Métropolitaine, avec les résultats des éléctions présidentielles en 2022.            
+        <br>
+        Les Départements en <b>Rouge</b> ont obtenu une majorité de voies pour Emmanuel Macron
+        <br>
+        Les Départements en <b>Bleu</b> ont obtenu une majorité de voies pour Marine Le Pen 
+        
+
+    </div>
     <div id="franceMap" style="position: relative; width: 1000px; height: 600px; margin-left: 10%;"></div>
-    
+    <p><a target="_blank" href="https://www.data.gouv.fr/fr/datasets/election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-2nd-tour/#resources" class="text-muted">Source : data.gouv.fr</a></p>
+</div>
     <script src="script/fr-map.js"></script>
 </body>
