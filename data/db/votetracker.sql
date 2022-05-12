@@ -11,5 +11,6 @@ CREATE TABLE exports (
     user_id INT NOT NULL,
     date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    exortname VARCHAR(255) NOT NULL
+    exortname VARCHAR(255) NOT NULL,
+    state INT NOT NULL DEFAULT 0
 )

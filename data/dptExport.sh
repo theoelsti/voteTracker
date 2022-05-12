@@ -1,15 +1,14 @@
 #!/bin/bash
+#63TEFT
 #Script visant à recuperer des fichiers d'un csv, de traiter l'entrée et de créer un fichier de sortie csv avec les données souhaitées
 
-# Verifie si au moins deux parametres sont donnés et si'il n'y a pas plus de 3 parametres
 if [ $# -lt 2 ] || [ $# -gt 4 ]; then
     echo "Usage: ./data-export.sh <mode_dpt> [<vainqueur>, <low;high>, <1;2;3;4...>] <file.csv>"
 fi
 
-# Iterate into 2tour2022.csv and echo lines
-file="out/$4"
+file="exports/$4"
 if [ "$1" = "1" ]; then
-    file="out/$3"
+    file="exports/$3"
 fi
 
 echo "Code_DPT;Libelle_DPT;Partitipation;abstentitons;votes1;votes2" > $file
@@ -52,7 +51,6 @@ while read line; do
 
 
         if [ "$code_dpt" -ge "$range1" -a "$code_dpt" -le "$range2" ]; then
-            # si le code est + grand que la range, on quitte le programme
             
             if [ "$code_dpt" -gt "$range2" ]; then
                 echo "fini"

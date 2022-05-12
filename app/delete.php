@@ -23,7 +23,9 @@ $count = mysqli_stmt_num_rows($stmt);
 mysqli_stmt_close($stmt);
 // If the user doesn't have the file, redirect him to the home page
 if($count == 0){
-    echo "<script>alert(\"Mdrrr cheater va\")</script>";
+    header("HTTP/1.1 401 Unauthorized");
+    
+    echo "<script>alert(\"Ce fichier ne vous appartient pas !\")</script>";
 }
 else {
     // Delete the file

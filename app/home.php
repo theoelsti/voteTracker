@@ -35,15 +35,28 @@ if(isset($_SESSION['admin'])&& $_SESSION['admin']== 1){
     while ($row = mysqli_fetch_array($result)) {
         echo "<tr>";
         echo "<th scope='row'>" . $row['id'] . "</th>";
+        if($row['state'] == 0){
+            echo "<td><i>Génération en cours...</i></td>";
+        }
+        else {
         echo "<td>" . $row['exportname'] . "</td>";
+        }
         echo "<td>" . $row['date'] . "</td>";
-        echo "
+        if($row['state'] == 0){
+            echo "
+            <td>
+            <button type=\"button\" class=\"btn btn-primary disabled\" title=\"Télécharger au format .csv\"><i class=\"bi bi-filetype-csv\"></i></button>
+            <a><button  type=\"button\" class=\"btn btn-danger disabled\" title=\"Supprimer\" \"><i class=\"bi bi-trash\"></i></button></a>
+            </td>";
+        }
+        else {
+            echo "
         <td>
-        <button type=\"button\" class=\"btn btn-primary\" title=\"Télécharger au format .csv\"><i class=\"bi bi-filetype-csv\"></i></button>
+        <a href=\"download.php?file=". $row['exportname']."\" ><button type=\"button\" class=\"btn btn-primary\" title=\"Télécharger au format .csv\"><i class=\"bi bi-filetype-csv\"></i></button></a>
         <a href=\"delete.php?file=".$row['exportname']."\"><button  type=\"button\" class=\"btn btn-danger\" title=\"Supprimer\" \"><i class=\"bi bi-trash\"></i></button></a>
         </td>";
+        }
 
-        echo "<td>";
     }
     echo "</tbody>";
     echo "</table>";
